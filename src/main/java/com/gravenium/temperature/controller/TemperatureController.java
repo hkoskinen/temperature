@@ -15,13 +15,13 @@ import com.gravenium.temperature.service.TemperatureService;
 public class TemperatureController {
 
 	@Autowired
-	private TemperatureService tempService;
+	private TemperatureService temperatureService;
 
 	@GetMapping(value = "/temperatures", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Response> getTemperatureByCity(@RequestParam(required = false) String city) {
 		if (city == null || city.length() == 0)
 			return ResponseEntity.badRequest().body(new Response("400", "Missing city name",""));
-		return ResponseEntity.ok(new Response("200", "success", tempService.getTemperature(city)));
+		return ResponseEntity.ok(new Response("200", "success", temperatureService.getTemperature(city)));
 	}
 }
 
