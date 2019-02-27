@@ -1,4 +1,4 @@
-# Temperature REST API ⛅
+# Temperature REST API
 
 Simple temperature REST API where you can get current temperature for the given city.
 You can also store your favorite city and get the temperature by that favorite city id.
