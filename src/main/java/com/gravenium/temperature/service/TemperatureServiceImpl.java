@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.gravenium.temperature.api.ApiError;
 import com.gravenium.temperature.domain.Temperature;
 
 @Service
@@ -27,9 +26,9 @@ private static final Logger log = LoggerFactory.getLogger(TemperatureService.cla
 			
 			log.debug("Temperature in " + city + " is " + temp.getMain().get("temp") + "°C");
 			result = temp.getMain().get("temp");
+			
 		} catch (HttpClientErrorException e) {
-			ApiError er = new ApiError("Invalid city name");
-			result = er.getMessage();
+			result = null;
 		}
 		return result;
 	}
