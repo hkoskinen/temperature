@@ -7,29 +7,35 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.gravenium.temperature.domain.Temperature;
+import com.gravenium.temperature.domain.Data;
 
 @Service
 class TemperatureServiceImpl implements TemperatureService {
-private static final Logger log = LoggerFactory.getLogger(TemperatureService.class);
+	
+	private static final Logger log = LoggerFactory.getLogger(TemperatureService.class);
 	
 	@Value("${app.openweathermap.api.key}")
 	private String API_KEY;
 	
-	private RestTemplate rest = new RestTemplate();
+	private RestTemplate restTemplate = new RestTemplate();
 	
-	public String getTemperature(String city) {
-		String result;
+	public Data getTemperature(String city) {
+		Data temp;
 		try {
-			Temperature temp = rest.getForObject("https://api.openweathermap.org/data/2.5/weather?q=" + city
-					+ "&units=metric&appid=" + API_KEY, Temperature.class);
+			temp = restTemplate.getForObject("https://api.openweathermap.org/data/2.5/weather?q=" + city
+					+ "&units=metric&appid=" + API_KEY, Data.class);
 			
-			log.debug("Temperature in " + city + " is " + temp.getMain().get("temp") + "°C");
-			result = temp.getMain().get("temp");
+			log.debug("Temperature in " 
+					+ temp.getCityName() 
+					+ "," 
+					+ temp.getCountry() 
+					+ " is " 
+					+ temp.getTemperature() 
+					+ "°C");
 			
 		} catch (HttpClientErrorException e) {
-			result = null;
+			temp = null;
 		}
-		return result;
+		return temp;
 	}
 }

@@ -1,17 +1,17 @@
 package com.gravenium.temperature.api;
 
-import java.util.Map;
+import com.gravenium.temperature.domain.Data;
 
 public class Response {
 	private String status;
 	private String message;
 	
-	private Map<String, String> data;
+	private Data data;
 	private String error = null;
 	
 	public Response() {}
 	
-	public Response(String status, String message, Map<String, String> data, String error) {
+	public Response(String status, String message, Data data, String error) {
 		super();
 		this.status = status;
 		this.message = message;
@@ -35,11 +35,11 @@ public class Response {
 		this.message = message;
 	}
 	
-	public Map<String, String> getData() {
+	public Data getData() {
 		return data;
 	}
 	
-	public void setData(Map<String, String> data) {
+	public void setData(Data data) {
 		this.data = data;
 	}
 	
