@@ -11,11 +11,6 @@ which you can then add as an environmental variable. The env variable is named
 "OPENWEATHERMAP_API_KEY" as can be seen in application.properties file. After that
 you can try and run the project. In the development phase H2 in-memory database is used.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-
 #### TODO
 
 ##### Add:
@@ -34,3 +29,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * to name things properly...
 * Swagger
 * more about testing
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
