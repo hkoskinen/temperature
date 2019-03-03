@@ -28,8 +28,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
-public class TemperatureController {
-
+class TemperatureController {
 	private static final Logger log = LoggerFactory.getLogger(TemperatureController.class);
 	
 	private TemperatureService temperatureService;
@@ -42,7 +41,8 @@ public class TemperatureController {
 
 	@GetMapping(value = "/temperatures", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Get current temperature by city name")
-	public ResponseEntity<Response> getTemperatureByCity(@RequestParam(required = false) String city) {
+	public ResponseEntity<Response> getTemperatureByCity(
+			@RequestParam(required = false) String city) {
 		
 		if (city == null || city.length() == 0) {
 			Response resp = new Response("400", "failure", null, "Missing city name");
@@ -50,19 +50,19 @@ public class TemperatureController {
 		}
 		
 		Data temperatureResponse = temperatureService.getTemperature(city);
-		
 		if (temperatureResponse != null) {
-			Response resp = new Response("200", "success", temperatureResponse, null);
-			return ResponseEntity.ok().body(resp);
-		} else {
-			Response resp = new Response("404", "failure", null, "Invalid city name");
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resp);
+			return ResponseEntity.ok().body(
+					new Response("200", "success", temperatureResponse, null));
 		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+				new Response("404", "failure", null, "Invalid city name"));
 	}
-	
+
 	@PostMapping(value = "/cities", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Save favorite city")
-	public ResponseEntity<?> saveFavoriteCity(@RequestBody Map<String ,String> body) {
+	public ResponseEntity<?> saveFavoriteCity(
+			@RequestBody Map<String ,String> body) {
+		
 		String city = body.get("city");
 		if (city != null && city.length() > 0) {
 			Data temperatureResponse = temperatureService.getTemperature(city);
@@ -78,20 +78,22 @@ public class TemperatureController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@GetMapping(value = "/cities/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Get current temperature by stored city id")
-	public ResponseEntity<?> getTemperatureById(@PathVariable Long id) {
+	public ResponseEntity<?> getTemperatureById(
+			@PathVariable Long id) {
+		
 		log.debug("Trying to find city by id " + id);
 		
 		Optional<City> c = cityRepository.findById(id);
 		if (c.isPresent()) {
 			Data temperatureResponse = temperatureService.getTemperature(c.get().getName());
-			Response resp = new Response("200", "success", temperatureResponse, null);
-			return ResponseEntity.ok().body(resp);
+			return ResponseEntity.ok().body(
+					new Response("200", "success", temperatureResponse, null));
 		} else {
-			Response resp = new Response("404", "failure", null, "Invalid city id");
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resp);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+					new Response("404", "failure", null, "Invalid city id"));
 		}
 	}
 }
