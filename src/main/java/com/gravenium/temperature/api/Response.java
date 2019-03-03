@@ -1,12 +1,17 @@
 package com.gravenium.temperature.api;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.gravenium.temperature.domain.Data;
 
 public class Response {
 	private String status;
 	private String message;
 	
+	@JsonInclude(Include.NON_NULL)
 	private Data data;
+	
+	@JsonInclude(Include.NON_NULL)
 	private String error = null;
 	
 	public Response() {}
