@@ -17,25 +17,28 @@ class TemperatureServiceImpl implements TemperatureService {
 	@Value("${app.openweathermap.api.key}")
 	private String API_KEY;
 	
-	private RestTemplate restTemplate = new RestTemplate();
+	private final RestTemplate restTemplate;
+	
+	public TemperatureServiceImpl() {
+		this.restTemplate = new RestTemplate();
+	}
 	
 	public Data getTemperature(String city) {
-		Data temp;
+		final String uri = "https://api.openweathermap.org/data/2.5/weather?q=" 
+				+ city + "&units=metric&appid=" + API_KEY;
 		try {
-			temp = restTemplate.getForObject("https://api.openweathermap.org/data/2.5/weather?q=" + city
-					+ "&units=metric&appid=" + API_KEY, Data.class);
-			
+			Data data = restTemplate.getForObject(uri, Data.class);
 			log.debug("Temperature in " 
-					+ temp.getCityName() 
+					+ data.getName() 
 					+ "," 
-					+ temp.getCountry() 
+					+ data.getCountry() 
 					+ " is " 
-					+ temp.getTemperature() 
+					+ data.getTemperature() 
 					+ "°C");
 			
+			return data;
 		} catch (HttpClientErrorException e) {
-			temp = null;
+			return null;
 		}
-		return temp;
 	}
 }

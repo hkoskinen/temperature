@@ -9,17 +9,17 @@ public class Data {
 	private Double temperature;
 	
 	@JsonProperty("name")
-	private String cityName;
+	private String name;
 	
-	private String countryName;
+	private String country;
 	
 	@JsonProperty("main")
-	private void doesthismatter(Map<String, Object> main) {
+	private void getTemperatureFromMainObject(Map<String, Object> main) {
 		this.temperature = (Double)main.get("temp");
 	}
 	@JsonProperty("sys")
-	private void doesthismatteragain(Map<String, Object> sys) {
-		this.countryName = (String)sys.get("country");
+	private void getCountryFromSysObject(Map<String, Object> sys) {
+		this.country = (String)sys.get("country");
 	}
 
 	public Double getTemperature() {
@@ -30,19 +30,19 @@ public class Data {
 		this.temperature = temperature;
 	}
 
-	public String getCityName() {
-		return cityName;
+	public String getName() {
+		return name;
 	}
 
-	public void setName(String cityName) {
-		this.cityName = cityName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getCountry() {
-		return countryName;
+		return country;
 	}
 
-	public void setCountry(String countryName) {
-		this.countryName = countryName;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 }
