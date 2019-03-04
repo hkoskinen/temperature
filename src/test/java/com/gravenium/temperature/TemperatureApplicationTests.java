@@ -9,7 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @DisplayName("Temperature application tests")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TemperatureApplicationTests {
+class TemperatureApplicationTests {
 
 	@Test
 	@DisplayName("Spring context loads properly")

@@ -1,6 +1,10 @@
 package com.gravenium.temperature;
 
 import static org.hamcrest.Matchers.notNullValue;
+
+import org.hamcrest.core.IsEqual;
+
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
@@ -26,6 +30,13 @@ class CityRepositoryTest {
 	void whenSaved_thenFindsByName() {
 		cityRepository.save(new City("Tampere"));
 		assertThat(cityRepository.findByName("Tampere"), notNullValue());
+	}
+	
+	@Test
+	@DisplayName("When city is saved to database, the returned city should have name")
+	void whenSaved_shouldHaveName() {
+		cityRepository.save(new City("Tampere"));
+		assertThat(cityRepository.findByName("Tampere").get().getName(), is("Tampere"));
 	}
 	
 	@Test
